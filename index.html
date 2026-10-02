@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="명상이 필요할 때, 마음수련 대연점 회원관리 시스템" />
+  <title>명상이 필요할 때, 마음수련 대연점</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23234E70'/%3E%3Cpath d='M17 34c7-12 23-12 30 0-7 12-23 12-30 0Z' fill='none' stroke='white' stroke-width='5'/%3E%3Ccircle cx='32' cy='34' r='5' fill='%23DDF2EE'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">명상이 필요할 때</p>
+        <h1>마음수련 대연점</h1>
+      </div>
+      <div class="week-picker">
+        <button id="prevWeek" class="icon-btn" aria-label="이전 주">‹</button>
+        <div><span class="muted">작성 주간</span><strong id="weekLabel"></strong></div>
+        <button id="nextWeek" class="icon-btn" aria-label="다음 주">›</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="주요 메뉴">
+      <button class="tab active" data-view="weekly">주간현황</button>
+      <button class="tab" data-view="members">회원관리</button>
+      <button class="tab" data-view="details">상세기록</button>
+    </nav>
+
+    <main>
+      <section id="weeklyView" class="view active">
+        <div class="summary-grid">
+          <div class="summary-card"><span>전체 회원</span><strong id="totalMembers">0</strong></div>
+          <div class="summary-card mint"><span>이번 주 출석 회원</span><strong id="attendingMembers">0</strong></div>
+          <div class="summary-card gold"><span>총 출석 횟수</span><strong id="attendanceCount">0</strong></div>
+          <div class="summary-card coral"><span>휴면 회원</span><strong id="dormantMembers">0</strong></div>
+        </div>
+        <div class="toolbar"><div><h2>주간 출석 및 지원 기록</h2><p class="muted">출석 상태를 선택하고, 도움이 필요한 회원의 다음 지원 내용을 적어주세요.</p></div><button class="primary" id="addMemberFromWeekly">+ 회원 등록</button></div>
+        <div class="table-wrap"><table><thead><tr><th>회원명</th><th>과정</th><th>상태</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th><th>일</th><th>합계</th><th>도움상태</th><th>다음 주 지원</th></tr></thead><tbody id="weeklyBody"></tbody></table><div id="weeklyEmpty" class="empty hidden">등록된 회원이 없습니다. 먼저 회원을 등록해 주세요.</div></div>
+      </section>
+
+      <section id="membersView" class="view">
+        <div class="toolbar"><div><h2>회원관리</h2><p class="muted">이름으로 검색하고 1과정부터 9과정까지 선택해 등록합니다.</p></div><button class="primary" id="addMemberBtn">+ 회원 등록</button></div>
+        <div class="filter-row"><input id="memberSearch" type="search" placeholder="회원 이름 검색" /><select id="courseFilter"><option value="all">전체 과정</option></select><span class="filter-note">4주 미출석 시 <b class="dormant-text">휴면</b>으로 표시됩니다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>회원명</th><th>과정</th><th>최근 출석</th><th>상태</th><th>관리</th></tr></thead><tbody id="membersBody"></tbody></table><div id="membersEmpty" class="empty hidden">검색 결과가 없습니다.</div></div>
+      </section>
+
+      <section id="detailsView" class="view">
+        <div class="toolbar"><div><h2>회원별 상세 도움 기록</h2><p class="muted">상·중·하를 선택하면 초록·노랑·빨강으로 표시됩니다.</p></div><select id="detailMemberSelect" aria-label="상세 기록 회원 선택"></select></div>
+        <div id="detailPanel" class="detail-panel"></div>
+      </section>
+    </main>
+  </div>
+  <dialog id="memberDialog"><form method="dialog" id="memberForm"><div class="dialog-head"><h2>회원 등록</h2><button class="icon-btn" value="cancel" aria-label="닫기">×</button></div><label>회원명<input id="memberName" required maxlength="30" /></label><label>과정<select id="memberCourse"></select></label><div class="dialog-actions"><button value="cancel" class="secondary">취소</button><button value="default" class="primary">등록하기</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>

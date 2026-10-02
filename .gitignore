@@ -1,0 +1,23 @@
+# 서비스 전용 설정과 중복 배포 폴더
+.openai/
+.wrangler/
+wrangler.toml
+wrangler.json
+wrangler.jsonc
+dist/
+
+# 의존성, 임시 파일, 환경 변수
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+
+# 개인 자료와 백업 (개인정보는 별도로 확인하세요)
+backups/
+exports/
+*.csv
+*.xlsx
+*.xls
+*.bak
